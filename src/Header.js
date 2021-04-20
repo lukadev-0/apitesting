@@ -9,6 +9,8 @@ import {
 	Typography,
 	ListItem,
 	ListItemText,
+	Avatar,
+	Button,
 } from '@material-ui/core'
 import {
 	GitHub as GitHubIcon,
@@ -18,25 +20,34 @@ import {
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { signIn, signOut, useSession } from 'next-auth/client'
 const useStyles = makeStyles({
 	toolbarButtons: {
 		marginLeft: 'auto',
 	},
 })
-function ListItemButton({ href, text }) {
+
+function Session() {
+	const [session, loading] = useSession()
+	if (session) console.log(session.user.image)
 	return (
-		<Link href={href}>
-			<ListItem button component="a">
-				<ListItemText primary={text} />
-			</ListItem>
-		</Link>
+		<>
+			{!session && (
+				<>
+					<Button onClick={signIn}>Sign in</Button>
+				</>
+			)}
+			{session && (
+				<>
+					<Avatar src={session.user.image} />
+				</>
+			)}
+		</>
 	)
 }
 
 export default function Header() {
 	const location = useRouter()
-	const [drawerState, setDrawerState] = useState(null)
-	const open = Boolean(drawerState)
 	const classes = useStyles()
 	return (
 		<AppBar
@@ -45,17 +56,8 @@ export default function Header() {
 			}}
 		>
 			<Toolbar>
-				<IconButton
-					edge="start"
-					color="inherit"
-					aria-label="menu"
-					onClick={(e) => {
-						setDrawerState(e.currentTarget)
-					}}
-				>
-					<MenuIcon />
-				</IconButton>
 				<Typography>{location.asPath.substring(1)}</Typography>
+				<Session />
 				<div className={classes.toolbarButtons}>
 					<IconButton color="inherit" href="https://twitter.com/dev_daimond113">
 						<TwitterIcon />
@@ -70,19 +72,6 @@ export default function Header() {
 						</SvgIcon>
 					</IconButton>
 				</div>
-				<Drawer
-					open={open}
-					anchor="left"
-					onClose={() => {
-						setDrawerState(null)
-					}}
-				>
-					<List>
-						<ListItemButton href="/" text="Main" />
-						<ListItemButton href="/portfolio" text="Portfolio" />
-						<ListItemButton href="/info" text="Website Info" />
-					</List>
-				</Drawer>
 			</Toolbar>
 		</AppBar>
 	)
