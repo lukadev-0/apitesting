@@ -42,7 +42,11 @@ function Session() {
 						src={session.user.image}
 					/>
 
-					<Popover open={Boolean(anchorEl)} anchorEl={anchorEl}>
+					<Popover
+						open={Boolean(anchorEl)}
+						anchorEl={anchorEl}
+						onClose={() => setAnchorEl(null)}
+					>
 						<Button onClick={signOut}>Sign out</Button>
 					</Popover>
 				</>
