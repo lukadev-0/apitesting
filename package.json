@@ -23,13 +23,13 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daimond113/api.daimond113.com.git"
+    "url": "git+https://github.com/daimond113/apis.daimond113.com.git"
   },
   "author": "https://github.com/daimond113",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/daimond113/api.daimond113.com/issues"
+    "url": "https://github.com/daimond113/apis.daimond113.com/issues"
   },
-  "homepage": "https://github.com/daimond113/api.daimond113.com#readme",
+  "homepage": "https://github.com/daimond113/apis.daimond113.com#readme",
   "main": "index.js"
 }
