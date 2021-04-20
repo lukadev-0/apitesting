@@ -1,0 +1,6 @@
+[
+    {
+        "endpoint": "/json/test",
+        "method": "GET"
+    }
+]
