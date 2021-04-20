@@ -26,7 +26,7 @@ export default function Index() {
 				<title>daimond113's API</title>
 				<meta content="daimond113's API" property="og:title" />
 				<meta content="daimond113's APIs" property="og:description" />
-				<meta content="https://www.daimond113.com/" property="og:url" />
+				<meta content="https://apis.daimond113.com/" property="og:url" />
 				<meta
 					content="https://avatars.githubusercontent.com/u/72147841?v=4"
 					property="og:image"
@@ -35,7 +35,7 @@ export default function Index() {
 			</Head>
 			<Header />
 			<Grid container alignItems="center" justify="center" direction="column">
-				<Typography variant="h2">api.daimond113.com</Typography>
+				<Typography variant="h2">apis.daimond113.com</Typography>
 				{APIs.map(({ endpoint, method }) => {
 					return <BaseItem endpoint={endpoint} method={method} />
 				})}
