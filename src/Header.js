@@ -1,25 +1,20 @@
 import {
 	AppBar,
-	Drawer,
 	IconButton,
-	List,
 	makeStyles,
 	SvgIcon,
 	Toolbar,
 	Typography,
-	ListItem,
-	ListItemText,
 	Avatar,
 	Button,
+	Popover,
 } from '@material-ui/core'
 import {
 	GitHub as GitHubIcon,
-	Menu as MenuIcon,
 	Twitter as TwitterIcon,
 } from '@material-ui/icons'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/client'
 const useStyles = makeStyles({
 	toolbarButtons: {
@@ -29,6 +24,7 @@ const useStyles = makeStyles({
 
 function Session() {
 	const [session, loading] = useSession()
+	const [anchorEl, setAnchorEl] = useState(null)
 	if (session) console.log(session.user.image)
 	return (
 		<>
@@ -39,7 +35,16 @@ function Session() {
 			)}
 			{session && (
 				<>
-					<Avatar src={session.user.image} />
+					<Avatar
+						onClick={(e) => {
+							setAnchorEl(e.currentTarget)
+						}}
+						src={session.user.image}
+					/>
+
+					<Popover open={Boolean(anchorEl)} anchorEl={anchorEl}>
+						<Button onClick={signOut}>Sign out</Button>
+					</Popover>
 				</>
 			)}
 		</>

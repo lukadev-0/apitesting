@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from '@material-ui/core'
-import React, { useState } from 'react'
+import React from 'react'
 import APIs from '../src/APIs.json'
 import Header from '../src/Header'
 
-const BaseItem = ({ endpoint, description, method }) => {
+const BaseItem = ({ endpoint, method }) => {
 	return (
 		<Grid item>
 			<Box mr={3} component="span">
