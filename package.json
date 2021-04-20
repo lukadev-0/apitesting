@@ -1,0 +1,35 @@
+{
+  "name": "daimond113-api",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.11.2",
+    "clsx": "latest",
+    "express": "^4.17.1",
+    "next": "latest",
+    "next-auth": "^3.15.1",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  },
+  "description": "## How to use",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daimond113/api.daimond113.com.git"
+  },
+  "author": "https://github.com/daimond113",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daimond113/api.daimond113.com/issues"
+  },
+  "homepage": "https://github.com/daimond113/api.daimond113.com#readme",
+  "main": "index.js"
+}
