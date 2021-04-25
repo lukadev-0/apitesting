@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
-import APIs from '../src/APIs.json'
-import Header from '../src/Header'
+import APIs from '@src/APIs.json'
+import Header from '@src/Header'
 import Head from 'next/head'
 
 const BaseItem = ({ endpoint, method }) => {
@@ -36,8 +36,11 @@ export default function Index() {
 			<Header />
 			<Grid container alignItems="center" justify="center" direction="column">
 				<Typography variant="h2">apis.daimond113.com</Typography>
-				{APIs.map(({ endpoint, method }) => {
-					return <BaseItem endpoint={endpoint} method={method} />
+				<Typography variant="h4">
+					Using the API key: <code>endpoint?apiKey=YOURAPIKEYHERE</code>
+				</Typography>
+				{APIs.map(({ endpoint, method }, index) => {
+					return <BaseItem endpoint={endpoint} method={method} key={index} />
 				})}
 			</Grid>
 		</div>

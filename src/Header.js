@@ -4,7 +4,6 @@ import {
 	makeStyles,
 	SvgIcon,
 	Toolbar,
-	Typography,
 	Avatar,
 	Button,
 	Popover,
@@ -12,60 +11,85 @@ import {
 import {
 	GitHub as GitHubIcon,
 	Twitter as TwitterIcon,
+	Login,
+	Logout,
+	Password,
 } from '@material-ui/icons'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { AuthCheck, useAuth, useUser } from 'reactfire'
+import Loading from './Loading'
 const useStyles = makeStyles({
 	toolbarButtons: {
 		marginLeft: 'auto',
 	},
 })
 
-function Session() {
-	const [session, loading] = useSession()
-	const [anchorEl, setAnchorEl] = useState(null)
-	if (session) console.log(session.user.image)
-	return (
-		<>
-			{!session && (
-				<>
-					<Button onClick={signIn}>Sign in</Button>
-				</>
-			)}
-			{session && (
-				<>
-					<Avatar
-						onClick={(e) => {
-							setAnchorEl(e.currentTarget)
-						}}
-						src={session.user.image}
-					/>
+function write(text) {
+	if (typeof window === 'undefined') return
+	navigator.clipboard.writeText(text)
+}
 
-					<Popover
-						open={Boolean(anchorEl)}
-						anchorEl={anchorEl}
-						onClose={() => setAnchorEl(null)}
-					>
-						<Button onClick={signOut}>Sign out</Button>
-					</Popover>
-				</>
-			)}
-		</>
+function Session() {
+	const user = useUser(null, {
+		initialData: 'loading',
+	})
+	const auth = useAuth()
+	const [anchorEl, setAnchorEl] = useState(null)
+	if (user.data === 'loading') {
+		return <Loading />
+	}
+
+	return (
+		<AuthCheck
+			fallback={
+				<Button href="/signin" startIcon={<Login />}>
+					Sign in
+				</Button>
+			}
+		>
+			<Avatar
+				onClick={(e) => {
+					setAnchorEl(e.currentTarget)
+				}}
+				src={user?.data?.photoURL}
+			/>
+
+			<Popover
+				open={Boolean(anchorEl)}
+				anchorEl={anchorEl}
+				onClose={() => setAnchorEl(null)}
+			>
+				<Button
+					onClick={() => {
+						write('hi')
+					}}
+					startIcon={<Password />}
+				>
+					Get your token
+				</Button>
+				<br />
+				<Button
+					onClick={() => {
+						auth.signOut()
+					}}
+					startIcon={<Logout />}
+				>
+					Sign out
+				</Button>
+			</Popover>
+		</AuthCheck>
 	)
 }
 
-export default function Header() {
-	const location = useRouter()
+export default function Header({ pos = 'static' }) {
 	const classes = useStyles()
 	return (
 		<AppBar
 			style={{
-				position: 'static',
+				position: pos,
 			}}
 		>
 			<Toolbar>
-				<Typography>{location.asPath.substring(1)}</Typography>
 				<Session />
 				<div className={classes.toolbarButtons}>
 					<IconButton color="inherit" href="https://twitter.com/dev_daimond113">

@@ -1,5 +1,9 @@
 [
     {
+        "endpoint": "/api/json",
+        "method": "GET"
+    },
+    {
         "endpoint": "/api/json/test",
         "method": "All"
     }
