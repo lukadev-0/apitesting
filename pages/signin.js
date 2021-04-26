@@ -52,7 +52,7 @@ export default function SignIn() {
 			<Header pos="absolute" />
 			<div className={classes.root}>
 				<Typography variant="h5">
-					Why sign in? It will give you an API key, allowing you to use the API
+					Why sign in? It will give you a key, allowing you to use the API
 				</Typography>
 				<div className={classes.buttons}>
 					<Button
@@ -65,6 +65,9 @@ export default function SignIn() {
 					</Button>
 				</div>
 			</div>
+			<Button variant="outlined" href="/">
+				Go back
+			</Button>
 		</div>
 	)
 }

@@ -6,7 +6,9 @@ import {
 	Toolbar,
 	Avatar,
 	Button,
-	Popover,
+	Menu,
+	MenuItem,
+	ListItemIcon,
 } from '@material-ui/core'
 import {
 	GitHub as GitHubIcon,
@@ -18,6 +20,7 @@ import {
 import { useState } from 'react'
 import { AuthCheck, useAuth, useUser } from 'reactfire'
 import Loading from './Loading'
+const defaultText = 'Get your token'
 const useStyles = makeStyles({
 	toolbarButtons: {
 		marginLeft: 'auto',
@@ -35,6 +38,7 @@ function Session() {
 	})
 	const auth = useAuth()
 	const [anchorEl, setAnchorEl] = useState(null)
+	const [text, setText] = useState(defaultText)
 	if (user.data === 'loading') {
 		return <Loading />
 	}
@@ -54,29 +58,36 @@ function Session() {
 				src={user?.data?.photoURL}
 			/>
 
-			<Popover
+			<Menu
 				open={Boolean(anchorEl)}
 				anchorEl={anchorEl}
 				onClose={() => setAnchorEl(null)}
 			>
-				<Button
+				<MenuItem
 					onClick={() => {
 						write('hi')
+						setText('Copied the token!')
+						setTimeout(() => {
+							setText(defaultText)
+						}, 5000)
 					}}
-					startIcon={<Password />}
 				>
-					Get your token
-				</Button>
-				<br />
-				<Button
+					<ListItemIcon>
+						<Password />
+					</ListItemIcon>
+					{text}
+				</MenuItem>
+				<MenuItem
 					onClick={() => {
 						auth.signOut()
 					}}
-					startIcon={<Logout />}
 				>
+					<ListItemIcon>
+						<Logout />
+					</ListItemIcon>
 					Sign out
-				</Button>
-			</Popover>
+				</MenuItem>
+			</Menu>
 		</AuthCheck>
 	)
 }
