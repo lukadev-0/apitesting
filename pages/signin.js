@@ -64,10 +64,10 @@ export default function SignIn() {
 						Sign in with GitHub
 					</Button>
 				</div>
+				<Button variant="outlined" href="/">
+					Go back
+				</Button>
 			</div>
-			<Button variant="outlined" href="/">
-				Go back
-			</Button>
 		</div>
 	)
 }
