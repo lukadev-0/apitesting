@@ -21,15 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
 	const classes = useStyles()
-	const auth = useAuth()
 	const Router = useRouter()
-	const user = useUser(null, {
-		initialData: 'loading',
-	})
-	if (user.data === 'loading') {
-		return <Loading />
-	}
-	const provider = new firebase.auth.GithubAuthProvider()
+
 	return (
 		<div>
 			<Head>
@@ -50,24 +43,6 @@ export default function SignIn() {
 				<meta content="#43B581" data-react-helmet="true" name="theme-color" />
 			</Head>
 			<Header pos="absolute" />
-			<div className={classes.root}>
-				<Typography variant="h5">
-					Why sign in? It will give you a key, allowing you to use the API
-				</Typography>
-				<div className={classes.buttons}>
-					<Button
-						onClick={() =>
-							auth.signInWithPopup(provider).then(() => Router.push('/', '/'))
-						}
-						variant="outlined"
-					>
-						Sign in with GitHub
-					</Button>
-				</div>
-				<Button variant="outlined" href="/">
-					Go back
-				</Button>
-			</div>
 		</div>
 	)
 }

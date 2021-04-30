@@ -18,7 +18,6 @@ import {
 	Password,
 } from '@material-ui/icons'
 import { useState } from 'react'
-import { AuthCheck, useAuth, useUser } from 'reactfire'
 import Loading from './Loading'
 const defaultText = 'Get your token'
 const useStyles = makeStyles({
@@ -32,66 +31,6 @@ function write(text) {
 	navigator.clipboard.writeText(text)
 }
 
-function Session() {
-	const user = useUser(null, {
-		initialData: 'loading',
-	})
-	const auth = useAuth()
-	const [anchorEl, setAnchorEl] = useState(null)
-	const [text, setText] = useState(defaultText)
-	if (user.data === 'loading') {
-		return <Loading />
-	}
-
-	return (
-		<AuthCheck
-			fallback={
-				<Button href="/signin" startIcon={<Login />}>
-					Sign in
-				</Button>
-			}
-		>
-			<Avatar
-				onClick={(e) => {
-					setAnchorEl(e.currentTarget)
-				}}
-				src={user?.data?.photoURL}
-			/>
-
-			<Menu
-				open={Boolean(anchorEl)}
-				anchorEl={anchorEl}
-				onClose={() => setAnchorEl(null)}
-			>
-				<MenuItem
-					onClick={() => {
-						write('hi')
-						setText('Copied the token!')
-						setTimeout(() => {
-							setText(defaultText)
-						}, 5000)
-					}}
-				>
-					<ListItemIcon>
-						<Password />
-					</ListItemIcon>
-					{text}
-				</MenuItem>
-				<MenuItem
-					onClick={() => {
-						auth.signOut()
-					}}
-				>
-					<ListItemIcon>
-						<Logout />
-					</ListItemIcon>
-					Sign out
-				</MenuItem>
-			</Menu>
-		</AuthCheck>
-	)
-}
-
 export default function Header({ pos = 'static' }) {
 	const classes = useStyles()
 	return (
@@ -101,7 +40,6 @@ export default function Header({ pos = 'static' }) {
 			}}
 		>
 			<Toolbar>
-				<Session />
 				<div className={classes.toolbarButtons}>
 					<IconButton color="inherit" href="https://twitter.com/dev_daimond113">
 						<TwitterIcon />
